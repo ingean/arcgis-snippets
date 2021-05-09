@@ -1,4 +1,4 @@
-
+// Returns a string with the time difference between now and a selected date
 function deltaTime(date, floor, unit1, unit2, suffix) {
   var diff = dateadd(date, floor, unit1)
   if (suffix == 'til') {
@@ -7,7 +7,7 @@ function deltaTime(date, floor, unit1, unit2, suffix) {
   return abs(datediff(now(), diff, unit2))
 }
 
-function relativeTime(value1, value2, unit1, unit2, suffix) {
+function formattedTime(value1, value2, unit1, unit2, suffix) {
   if (floor(value2) > 0) {
     return round(value1) + " " + unit1 + " og " + round(value2) +  " " + unit2 +  " " + suffix
   } else {
@@ -30,38 +30,24 @@ function formatTimeDelta(date){
       if (hours < 24){
           var tFloor = floor(hours)
           var deltaMin = deltaTime(date, hours, 'hours', 'minutes', suffix)
-          return relativeTime(hours, deltaMin, 'timer', 'minutter', suffix)
+          return formattedTime(hours, deltaMin, 'timer', 'minutter', suffix)
       } else {
           var dFloor = floor(days)
           var deltaHrs = deltaTime(date, days, 'days', 'hours', suffix)
-          return relativeTime(days, deltaHrs, 'dager', 'timer', suffix)          
+          return formattedTime(days, deltaHrs, 'dager', 'timer', suffix)          
       }
   }
 }
 
 var relativeTime = formatTimeDelta($datapoint.duedate)
 
-var bgColor = ''
-
-if (DateDiff(Now(), $datapoint.EditDate, 'days') < 1) {
-  bgColor = '#C8E6C9';
-}
-
-if (DateDiff(Now(), $datapoint.duedate, 'seconds') > 0) {
-  bgColor = '#eb4034';
-}
-
-
-var status = DomainName($datapoint,"status")
-
 return {
   textColor: '',
-  backgroundColor: bgColor,
+  backgroundColor: '',
   separatorColor:'',
   selectionColor: '',
   selectionTextColor: '',
     attributes: {
-      relativeTime: relativeTime,
-      //attribute2: value2
+      relativeTime: relativeTime
   }
 }
