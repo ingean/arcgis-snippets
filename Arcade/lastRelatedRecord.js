@@ -1,3 +1,7 @@
+// For use in a layer popup
+// Gets all records related to the feature
+// Reports back some attribute info for the most recent related records
+
 var activities = OrderBy(FeatureSetByRelationshipName($feature,"Aktiviteter"),"EditDate DES")
 var cnt = Count(activities)
 var activityInfo = ""
